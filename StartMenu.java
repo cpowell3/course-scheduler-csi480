@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JFrame;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -8,10 +9,6 @@ import javax.swing.DefaultListModel;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author Parker
- */
 public class StartMenu extends javax.swing.JFrame {
 	
 	// Variables declaration - do not modify                     
@@ -83,18 +80,17 @@ public class StartMenu extends javax.swing.JFrame {
         jCheckBoxMenuItem3.setSelected(true);
         jCheckBoxMenuItem3.setText("jCheckBoxMenuItem3");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         jInternalFrame1.setVisible(true);
 
         DepartmentLabel.setText("Department:");
-        
-        String[] department_strings = { "HONORS CLASSES", "AMERICAN STUDIES", "ANTHROPOLOGY", "ART/ART HISTORY", "BIOLOGY", "BLACK STUDIES", "BUSINESS MANAGEMENT", "CHEMISTRY", "CHINESE", "CHESAPEAKE REGIONAL STUDIES", "COMPUTER SCIENCE", "DANCE", "ECONOMICS", "EDUCATION", "ENGLISH LANGUAGE LEARNING", "ENGLISH", "ENVIRONMENTAL SCIENCE/STUDIES", "FRENCH STUDIES", "GENDER STUDIES", "GERMAN STUDIES", "GLOBAL PERSPECTIVES", "HISTORY", "HISPANIC STUDIES", "INT'L LITERATURE & CULTURE", "INTERNATIONAL STUDIES", "MATHEMATICS", "MUSIC", "PHYSICAL EDUCATION", "PHILOSOPHY", "PHYSICS", "POLITICAL SCIENCE", "PSYCHOLOGY", "SOCIOLOGY", "THEATRE"};
 
+        String[] department_strings = { "American Studies", "Anthropology", "Art/Art History", "Biology", "Black Studies", "Business Management", "Chemistry", "Chinese", "Computer Science", "Dance", "Economics", "Education", "English Language Learning", "English", "Environmental Science/Studies", "French Studies", "Gender Studies", "German Studies", "Global Perspectives", "History", "Humanities", "Hispanic Studies", "Int'l Literature & Culture", "International Studies", "Mathematics", "Music", "Physical Education", "Philosophy", "Physics", "Political Science", "Psychology", "Sociology", "Theatre"};
+        String[] department_abrv = { "AMS", "ANT", "ART", "BIO", "BLS", "BUS", "CHE", "CHN", "CSI", "DAN", "ECN", "EDU", "ELL", "ENG", "ENV", "FRS", "GEN", "GRS", "GRW", "HIS", "HMN", "HPS", "ILC", "INT", "MAT", "MUS", "PED", "PHL", "PHY", "POL", "PSY", "SOC", "THE" };
         jComboDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(department_strings));
         jComboDepartment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboDepartmentActionPerformed(jComboDepartment.getSelectedItem().toString());
+                //jComboDepartmentActionPerformed(jComboDepartment.getSelectedItem().toString());
+            	jComboDepartmentActionPerformed(department_abrv[jComboDepartment.getSelectedIndex()]);
             }
         });
 
@@ -224,20 +220,26 @@ public class StartMenu extends javax.swing.JFrame {
 
     private void jComboDepartmentActionPerformed(String departmentName) {                                           
         // TODO add your handling code here:
-    	selected_classes.add(departmentName);
-    	department_list_model.addElement(departmentName);
-    	System.out.println(selected_classes);
+    	if(!selected_classes.contains(departmentName)){
+    		selected_classes.add(departmentName);
+        	department_list_model.addElement(departmentName);
+    	}
+    	
     }                                          
 
     private void FinishButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
-    }                                        
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
+    	//new CalendarUI().setVisible(true);
+    	JFrame newFrame = new JFrame();
+    	newFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+    	newFrame.add(new CalendarUI());
+    	newFrame.pack();
+    	newFrame.setVisible(true);
+    }    
+    
+    public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		 /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -266,6 +268,7 @@ public class StartMenu extends javax.swing.JFrame {
                 new StartMenu().setVisible(true);
             }
         });
-    }                 
+	}
+
 
 }
