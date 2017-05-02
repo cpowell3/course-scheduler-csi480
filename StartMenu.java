@@ -33,6 +33,7 @@ public class StartMenu extends javax.swing.JFrame {
     // End of variables declaration  
     
     public ArrayList<String> selected_classes = new ArrayList<String>();
+    public ArrayList<String> selected_classes_abrv = new ArrayList<String>();
     final DefaultListModel department_list_model = new DefaultListModel();
     private String year, semester;
 
@@ -84,13 +85,15 @@ public class StartMenu extends javax.swing.JFrame {
 
         DepartmentLabel.setText("Department:");
 
-        String[] department_strings = { "American Studies", "Anthropology", "Art/Art History", "Biology", "Black Studies", "Business Management", "Chemistry", "Chinese", "Computer Science", "Dance", "Economics", "Education", "English Language Learning", "English", "Environmental Science/Studies", "French Studies", "Gender Studies", "German Studies", "Global Perspectives", "History", "Humanities", "Hispanic Studies", "Int'l Literature & Culture", "International Studies", "Mathematics", "Music", "Physical Education", "Philosophy", "Physics", "Political Science", "Psychology", "Sociology", "Theatre"};
+        String[] department_strings_lowercase = { "American Studies", "Anthropology", "Art/Art History", "Biology", "Black Studies", "Business Management", "Chemistry", "Chinese", "Computer Science", "Dance", "Economics", "Education", "English Language Learning", "English", "Environmental Science/Studies", "French Studies", "Gender Studies", "German Studies", "Global Perspectives", "History", "Humanities", "Hispanic Studies", "Int'l Literature & Culture", "International Studies", "Mathematics", "Music", "Physical Education", "Philosophy", "Physics", "Political Science", "Psychology", "Sociology", "Theatre"};
+        String[] department_strings = { "AMERICAN STUDIES", "ANTHROPOLOGY", "ART/ART HISTORY", "BIOLOGY", "BLACK STUDIES", "BUSINESS MANAGEMENT", "CHEMISTRY", "CHINESE", "COMPUTER SCIENCE", "DANCE", "ECONOMICS", "EDUCATION", "ENGLISH LANGUAGE LEARNING", "ENGLISH", "ENVIRONMENTAL SCIENCE/STUDIES", "FRENCH STUDIES", "GENDER STUDIES", "GERMAN STUDIES", "GLOBAL PERSPECTIVES", "HISTORY", "HUMANITIES", "HISPANIC STUDIES", "INT'L LITERATURE & CULTURE", "INTERNATIONAL STUDIES", "MATHEMATICS", "MUSIC", "PHYSICAL EDUCATION", "PHILOSOPHY", "PHYSICS", "POLITICAL SCIENCE", "PSYCHOLOGY", "SOCIOLOGY", "THEATRE"};
         String[] department_abrv = { "AMS", "ANT", "ART", "BIO", "BLS", "BUS", "CHE", "CHN", "CSI", "DAN", "ECN", "EDU", "ELL", "ENG", "ENV", "FRS", "GEN", "GRS", "GRW", "HIS", "HMN", "HPS", "ILC", "INT", "MAT", "MUS", "PED", "PHL", "PHY", "POL", "PSY", "SOC", "THE" };
-        jComboDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(department_strings));
+        jComboDepartment.setModel(new javax.swing.DefaultComboBoxModel<>(department_strings_lowercase));
         jComboDepartment.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 //jComboDepartmentActionPerformed(jComboDepartment.getSelectedItem().toString());
-            	jComboDepartmentActionPerformed(department_abrv[jComboDepartment.getSelectedIndex()]);
+            	int index = jComboDepartment.getSelectedIndex();
+            	jComboDepartmentActionPerformed(department_strings[index], department_abrv[index], department_strings_lowercase[index]);
             }
         });
 
@@ -208,22 +211,31 @@ public class StartMenu extends javax.swing.JFrame {
     
     public ArrayList<String> getDepartments(){
 		return selected_classes;
-	}                                      
+	}
+    
+    public ArrayList<String> getDepartmentCodes(){
+    	return selected_classes_abrv;
+    }
 
     private void RemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {                                         
         // TODO add your handling code here:
     	int toRemove = jList1.getSelectedIndex();
     	department_list_model.remove(toRemove);
     	selected_classes.remove(toRemove);
+    	selected_classes_abrv.remove(toRemove);
     	System.out.println(selected_classes);
     }                                        
 
-    private void jComboDepartmentActionPerformed(String departmentName) {                                           
+    private void jComboDepartmentActionPerformed(String departmentName, String departmentAbrv, String departmentLowercase) {                                           
         // TODO add your handling code here:
     	if(!selected_classes.contains(departmentName)){
     		selected_classes.add(departmentName);
-        	department_list_model.addElement(departmentName);
+    		selected_classes_abrv.add(departmentAbrv);
+        	department_list_model.addElement(departmentLowercase);
     	}
+    	
+    	System.out.println(selected_classes);
+    	System.out.println(selected_classes_abrv);
     	
     }                                          
 
